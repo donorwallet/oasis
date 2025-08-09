@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oasis Donation</title>
+    <link rel="stylesheet" href="donorwallet.css">
+    <style>
+        /* Additional styles needed for functionality */
+        .carousel-row {
+            display: flex;
+            overflow-x: auto;
+            gap: 15px;
+            padding: 10px 0;
+            scroll-snap-type: x mandatory;
+        }
+
+        .card {
+            min-width: 120px;
+            height: 120px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            scroll-snap-align: center;
+        }
+
+        .card.selected {
+            border: 3px solid #4ecdc4;
+            box-shadow: 0 8px 30px rgba(78, 205, 196, 0.5);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .card-title {
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .card-price {
+            font-size: 10px;
+            opacity: 0.9;
+        }
+
+        .donation-btn {
+            width: 100%;
+            padding: 20px;
+            border: none;
+            border-radius: 15px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .donation-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+
+        .support-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .member-greeting {
+            color: white;
+            font-weight: bold;
+        }
+
+        .small-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .small-btn:hover {
+            background: rgba(255, 255, 255, 0.6);
+            color: #333;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 350px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn.primary {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+        }
+
+        .modal-btn.secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .form-group {
+            margin: 15px 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #4ecdc4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            color: white;
+            font-size: 40px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .transaction-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .transaction-info div {
+            margin: 5px 0;
+            color: white;
+        }
+
+        .about-text {
+            color: white;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+
+        .contact-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            color: white;
+            margin: 10px 0;
+        }
+
+        .donation-circles {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .circle {
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            position: absolute;
+        }
+
+        .circle-1 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .circle-2 {
+            width: 130px;
+            height: 130px;
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+        }
+
+        .circle-3 {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .scrolling-text {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            color: white;
+            max-height: 100px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Top Bar (hidden on intro page) -->
+        <div class="top-bar hidden" id="topBar">
+            <button class="top-bar-icon" onclick="openScanModal()">📷</button>
+            <button class="top-bar-icon" onclick="showPage('donation')">💝</button>
+            <button class="top-bar-icon" onclick="openSettingsModal()">👤</button>
+            <button class="top-bar-icon" onclick="showPage('about')">📞</button>
+        </div>
+
+        <!-- Page 1: Intro Page -->
+        <div class="page active intro-page" id="introPage">
+            <div class="title">
+                <div>浪浪綠洲捐助</div>
+                <div>Oasis Donation</div>
+            </div>
+            <div class="image-carousel">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzRlY2RjNCIvPgogIDx0ZXh0IHg9IjIwMCIgeT0iMTUwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5TdHJheSBEb2dzPC90ZXh0Pgo8L3N2Zz4=" class="carousel-image" alt="Stray Dogs">
+            </div>
+            <div class="start-buttons">
+                <button class="start-btn english" onclick="startApp('en')">Start</button>
+                <button class="start-btn chinese" onclick="startApp('zh')">開始</button>
+            </div>
+        </div>
+
+        <!-- Page 2: Matching Page -->
+        <div class="page page-with-bars" id="matchingPage">
+            <div class="box">
+                <div class="box-title" data-en="Please Select" data-zh="請選擇">請選擇</div>
+                
+                <div style="margin: 20px 0;">
+                    <div class="box-title" style="font-size: 16px; margin-bottom: 10px;" data-en="NEEDS" data-zh="需求">需求</div>
+                    <div class="carousel-row" id="needsCarousel">
+                        <div class="card" data-type="needs" data-value="FOOD:$100" onclick="selectCard(this)">
+                            <div>🍖</div>
+                            <div class="card-title" data-en="Nutritional Food" data-zh="營養糧食">營養糧食</div>
+                            <div class="card-price">$100/份</div>
+                        </div>
+                        <div class="card" data-type="needs" data-value="INSURANCE:$268" onclick="selectCard(this)">
+                            <div>🏥</div>
+                            <div class="card-title" data-en="Medical Insurance" data-zh="醫療保險">醫療保險</div>
+                            <div class="card-price">$268/月</div>
+                        </div>
+                        <div class="card" data-type="needs" data-value="COLLAR:$330" onclick="selectCard(this)">
+                            <div>📱</div>
+                            <div class="card-title" data-en="Smart Collar" data-zh="智能頸圈">智能頸圈</div>
+                            <div class="card-price">$330/件</div>
+                        </div>
+                        <div class="card" data-type="needs" data-value="ADOPTION:$489" onclick="selectCard(this)">
+                            <div>❤️</div>
+                            <div class="card-title" data-en="Full Adoption" data-zh="全面助養">全面助養</div>
+                            <div class="card-price">$489/月</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin: 20px 0;">
+                    <div class="box-title" style="font-size: 16px; margin-bottom: 10px;" data-en="LIVES" data-zh="生命">生命</div>
+                    <div class="carousel-row" id="livesCarousel">
+                        <div class="card" data-type="lives" data-value="ALLSTRAY:1" onclick="selectCard(this)">
+                            <div>🏠</div>
+                            <div class="card-title" data-en="All Strays" data-zh="綠洲浪浪">綠洲浪浪</div>
+                        </div>
+                        <div class="card" data-type="lives" data-value="SQUIRREL:1" onclick="selectCard(this)">
+                            <div>🐕</div>
+                            <div class="card-title" data-en="Squirrel Dog, 6 years" data-zh="松鼠狗6歲">松鼠狗6歲</div>
+                        </div>
+                        <div class="card" data-type="lives" data-value="PUG:1" onclick="selectCard(this)">
+                            <div>🐶</div>
+                            <div class="card-title" data-en="Pug Dog, 8 years" data-zh="八哥狗8歲">八哥狗8歲</div>
+                        </div>
+                        <div class="card" data-type="lives" data-value="TERRIER:1" onclick="selectCard(this)">
+                            <div>🦮</div>
+                            <div class="card-title" data-en="Terrier Dog, 14 years" data-zh="爹利狗14歲">爹利狗14歲</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="box-title" data-en="Please Support" data-zh="請支持">請支持</div>
+                
+                <button class="donation-btn" onclick="showPage('donation')" data-en="DONATE NOW" data-zh="立即捐款">立即捐款</button>
+                
+                <div class="support-row">
+                    <div class="member-greeting" id="memberGreeting" data-en="I am a guest" data-zh="我是訪客">我是訪客</div>
+                    <button class="small-btn" onclick="openSettingsModal()" id="memberBtn" data-en="Login" data-zh="登錄">登錄</button>
+                </div>
+                
+                <div class="support-row">
+                    <button class="small-btn" onclick="openTotalDonationsModal()" data-en="Total Donations" data-zh="總捐款">總捐款 $<span id="totalAmount">5,389,730</span></button>
+                    <button class="small-btn" onclick="openUsedDonationsModal()" data-en="Used Donations" data-zh="已用捐款">已用捐款 $<span id="usedAmount">3,897,304</span></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 3: Donation Page -->
+        <div class="page page-with-bars" id="donationPage">
+            <div class="box">
+                <div class="box-title" data-en="Thank You for Donation" data-zh="多謝捐款">多謝捐款</div>
+                <div class="scrolling-text" id="donationItems"></div>
+                <div style="color: white; font-size: 18px; font-weight: bold; margin: 15px 0;">
+                    <span data-en="Total Amount:" data-zh="總金額:">總金額:</span> $<span id="donationTotal">0</span>
+                </div>
+                <button class="donation-btn" onclick="openPaymentModal()" data-en="Pay by STRIPE" data-zh="使用 STRIPE 付款">使用 STRIPE 付款</button>
+            </div>
+
+            <div class="box" id="donationComplete" style="display: none;">
+                <div class="box-title" data-en="Donation Complete" data-zh="捐款完成">捐款完成</div>
+                <div class="checkmark">✓</div>
+                <div class="transaction-info" id="transactionInfo"></div>
+            </div>
+        </div>
+
+        <!-- Page 4: About Page -->
+        <div class="page page-with-bars" id="aboutPage">
+            <div class="box">
+                <div class="box-title" data-en="Donation Summary" data-zh="捐款摘要">捐款摘要</div>
+                <div class="donation-circles">
+                    <div class="circle circle-1">
+                        <div>
+                            <div data-en="Total Oasis" data-zh="綠洲總額">綠洲總額</div>
+                            <div>$<span id="oasisTotal">5,395,119</span></div>
+                        </div>
+                    </div>
+                    <div class="circle circle-2">
+                        <div>
+                            <div data-en="Used" data-zh="已使用">已使用</div>
+                            <div>$<span id="oasisUsed">3,898,637</span></div>
+                        </div>
+                    </div>
+                    <div class="circle circle-3">
+                        <div>
+                            <div data-en="Mine" data-zh="我的">我的</div>
+                            <div>$<span id="myUsed">0</span></div>
+                        </div>
+                    </div>
+                </div>
+                <button class="small-btn" onclick="window.open('https://quantumbesu.web.app/contract/oasisHKD', '_blank')" data-en="View Smart Contract" data-zh="查看智能合約">查看智能合約</button>
+            </div>
+
+            <div class="box">
+                <div class="box-title" data-en="About Us" data-zh="關於我們">關於我們</div>
+                <div class="about-text">
+                    當每一隻流浪犬的項圈都在守護家的平安,當沙頭角的數據成為千萬寵物的健康燈塔—— 這便是荒地重生為科技善意的終極證明。
+                </div>
+                <div class="contact-info">
+                    <div><strong data-en="Organization:" data-zh="執行機構:">執行機構:</strong> 香港犬隻領養配對及教育協會有限公司</div>
+                    <div><strong>CR No:</strong> 2937991</div>
+                    <div><strong data-en="Tech Partner:" data-zh="科技合作夥伴:">科技合作夥伴:</strong> Real Matter Technology Limited</div>
+                    <div><strong data-en="Contact:" data-zh="聯絡人:">聯絡人:</strong> 陳先生</div>
+                    <div><strong data-en="Phone:" data-zh="電話:">電話:</strong> 852-63600336</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bar (hidden on intro page) -->
+        <div class="footer-bar hidden" id="footerBar">
+            <button class="footer-btn" onclick="previousPage()" id="prevBtn" data-en="Previous" data-zh="上一頁">上一頁</button>
+            <button class="footer-btn" onclick="nextPage()" id="nextBtn" data-en="Next" data-zh="下一頁">下一頁</button>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header" data-en="Member Settings" data-zh="會員設定">會員設定</div>
+            <div id="loginForm">
+                <div class="form-group">
+                    <label data-en="Username:" data-zh="用戶名:">用戶名:</label>
+                    <input type="text" id="username" value="">
+                </div>
+                <div class="form-group">
+                    <label data-en="Password:" data-zh="密碼:">密碼:</label>
+                    <input type="password" id="password" value="">
+                </div>
+            </div>
+            <div id="memberInfo" style="display: none;">
+                <div style="margin: 10px 0;"><strong data-en="Name:" data-zh="姓名:">姓名:</strong> Alice</div>
+                <div style="margin: 10px 0;"><strong data-en="Address:" data-zh="地址:">地址:</strong> 0x7a8f9...bc3e2</div>
+                <div style="margin: 10px 0;"><strong data-en="Level:" data-zh="級別:">級別:</strong> Gold</div>
+                <div style="margin: 10px 0;"><strong data-en="Expires:" data-zh="到期日:">到期日:</strong> 2029-12-31</div>
+                <button class="modal-btn secondary" disabled data-en="Download Receipt" data-zh="下載收據">下載收據</button>
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-btn primary" onclick="toggleLogin()" id="loginBtn" data-en="Login" data-zh="登錄">登錄</button>
+                <button class="modal-btn secondary" onclick="closeModal('settingsModal')" data-en="Cancel" data-zh="取消">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Select Modal -->
+    <div class="modal" id="selectModal">
+        <div class="modal-content">
+            <div class="modal-header" id="selectModalTitle"></div>
+            <div id="selectModalContent"></div>
+            <div class="modal-buttons">
+                <button class="modal-btn primary" onclick="toggleSelection()" id="selectBtn">Select</button>
+                <button class="modal-btn secondary" onclick="closeModal('selectModal')">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total Donations Modal -->
+    <div class="modal" id="totalDonationsModal">
+        <div class="modal-content">
+            <div class="modal-header" data-en="Total Donations" data-zh="總捐款">總捐款</div>
+            <div style="margin: 15px 0; line-height: 1.5;">
+                <span data-en="Stablecoin smart contract manages all donations transparently on blockchain." data-zh="穩定幣智能合約在區塊鏈上透明管理所有捐款。">穩定幣智能合約在區塊鏈上透明管理所有捐款。</span>
+            </div>
+            <div style="margin: 15px 0;">
+                <strong data-en="Contract Address:" data-zh="合約地址:">合約地址:</strong><br>
+                0xa1b2c3d4e5f6789...
+            </div>
+            <div style="max-height: 200px; overflow-y: auto;">
+                <div><strong data-en="Recent Donations:" data-zh="最近捐款:">最近捐款:</strong></div>
+                <div>2024-08-08: $268</div>
+                <div>2024-08-07: $100</div>
+                <div>2024-08-06: $489</div>
+                <div>2024-08-05: $330</div>
+                <div>2024-08-04: $100</div>
+                <div>2024-08-03: $268</div>
+                <div>2024-08-02: $489</div>
+                <div>2024-08-01: $330</div>
+                <div>2024-07-31: $100</div>
+                <div>2024-07-30: $268</div>
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-btn primary" onclick="window.open('https://quantumbesu.web.app/contract/oasisHKD', '_blank')" data-en="View Contract" data-zh="查看合約">查看合約</button>
+                <button class="modal-btn secondary" onclick="closeModal('totalDonationsModal')" data-en="Close" data-zh="關閉">關閉</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Used Donations Modal -->
+    <div class="modal" id="usedDonationsModal">
+        <div class="modal-content">
+            <div class="modal-header" data-en="Used Donations" data-zh="已用捐款">已用捐款</div>
+            <div style="margin: 15px 0; line-height: 1.5;">
+                <span data-en="Quantum-safe blockchain ensures transparent tracking of donation usage." data-zh="量子安全區塊鏈確保捐款使用的透明追蹤。">量子安全區塊鏈確保捐款使用的透明追蹤。</span>
+            </div>
+            <div style="margin: 15px 0;">
+                <strong data-en="Account Address:" data-zh="帳戶地址:">帳戶地址:</strong><br>
+                0x9z8y7x6w5v4u321...
+            </div>
+            <div style="max-height: 200px; overflow-y: auto;">
+                <div><strong data-en="Purchase History:" data-zh="購買記錄:">購買記錄:</strong></div>
+                <div>2024-08-08: 醫療保險</div>
+                <div>2024-08-07: 營養糧食</div>
+                <div>2024-08-06: 全面助養</div>
+                <div>2024-08-05: 智能頸圈</div>
+                <div>2024-08-04: 營養糧食</div>
+                <div>2024-08-03: 醫療保險</div>
+                <div>2024-08-02: 全面助養</div>
+                <div>2024-08-01: 智能頸圈</div>
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-btn primary" onclick="window.open('https://quantumbesu.web.app/account/allstray', '_blank')" data-en="View Blockchain" data-zh="查看區塊鏈">查看區塊鏈</button>
+                <button class="modal-btn secondary" onclick="closeModal('usedDonationsModal')" data-en="Close" data-zh="關閉">關閉</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scan Modal -->
+    <div class="modal" id="scanModal">
+        <div class="modal-content">
+            <div class="modal-header" data-en="Scan QR Code" data-zh="掃描二維碼">掃描二維碼</div>
+            <div style="height: 200px; background: #f0f0f0; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 20px 0;">
+                <div data-en="Camera would be activated here" data-zh="攝像頭將在此處啟動">攝像頭將在此處啟動</div>
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-btn primary" onclick="confirmScan()" data-en="Confirm" data-zh="確認">確認</button>
+                <button class="modal-btn secondary" onclick="closeModal('scanModal')" data-en="Cancel" data-zh="取消">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <div class="modal-header" data-en="STRIPE Payment" data-zh="STRIPE 付款">STRIPE 付款</div>
+            <div class="form-group">
+                <label data-en="Visa Card Number:" data-zh="Visa卡號:">Visa卡號:</label>
+                <input type="text" placeholder="1234 5678 9012 3456">
+            </div>
+            <div class="form-group">
+                <label data-en="Billing Address:" data-zh="帳單地址:">帳單地址:</label>
+                <input type="text" placeholder="123 Main St, City">
+            </div>
+            <div class="form-group">
+                <label data-en="Cardholder Name:" data-zh="持卡人姓名:">持卡人姓名:</label>
+                <input type="text" placeholder="John Doe">
+            </div>
+            <div class="form-group">
+                <label data-en="Email:" data-zh="電子郵件:">電子郵件:</label>
+                <input type="email" placeholder="john@example.com">
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-btn primary" onclick="processPayment()" disabled data-en="Pay" data-zh="付款">付款</button>
+                <button class="modal-btn secondary" onclick="closeModal('paymentModal')" data-en="Cancel" data-zh="取消">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentLanguage = 'zh';
+        let currentPage = 'intro';
+        let isLoggedIn = false;
+        let selectedNeeds = [];
+        let selectedLives = [];
+        let currentSelectedCard = null;
+        let mockData = {
+            guest: { total: 5389730, used: 3897304 },
+            alice: { total: 5389, used: 1333 }
+        };
+
+        // Language data
+        const translations = {
+            en: {
+                'Please Select': 'Please Select',
+                'Please Support': 'Please Support',
+                'NEEDS': 'NEEDS',
+                'LIVES': 'LIVES',
+                'Nutritional Food': 'Nutritional Food',
+                'Medical Insurance': 'Medical Insurance',
+                'Smart Collar': 'Smart Collar',
+                'Full Adoption': 'Full Adoption',
+                'All Strays': 'All Strays',
+                'Squirrel Dog, 6 years': 'Squirrel Dog, 6 years',
+                'Pug Dog, 8 years': 'Pug Dog, 8 years',
+                'Terrier Dog, 14 years': 'Terrier Dog, 14 years',
+                'DONATE NOW': 'DONATE NOW',
+                'I am a guest': 'I am a guest',
+                'Hello Alice': 'Hello Alice',
+                'Login': 'Login',
+                'Member Settings': 'Member Settings',
+                'Total Donations': 'Total Donations',
+                'Used Donations': 'Used Donations',
+                'Thank You for Donation': 'Thank You for Donation',
+                'Total Amount:': 'Total Amount:',
+                'Pay by STRIPE': 'Pay by STRIPE',
+                'Donation Complete': 'Donation Complete',
+                'Previous': 'Previous',
+                'Next': 'Next'
+            },
+            zh: {
+                'Please Select': '請選擇',
+                'Please Support': '請支持',
+                'NEEDS': '需求',
+                'LIVES': '生命',
+                'Nutritional Food': '營養糧食',
+                'Medical Insurance': '醫療保險',
+                'Smart Collar': '智能頸圈',
+                'Full Adoption': '全面助養',
+                'All Strays': '綠洲浪浪',
+                'Squirrel Dog, 6 years': '松鼠狗6歲',
+                'Pug Dog, 8 years': '八哥狗8歲',
+                'Terrier Dog, 14 years': '爹利狗14歲',
+                'DONATE NOW': '立即捐款',
+                'I am a guest': '我是訪客',
+                'Hello Alice': '您好 Alice',
+                'Login': '登錄',
+                'Member Settings': '會員設定',
+                'Total Donations': '總捐款',
+                'Used Donations': '已用捐款',
+                'Thank You for Donation': '多謝捐款',
+                'Total Amount:': '總金額:',
+                'Pay by STRIPE': '使用 STRIPE 付款',
+                'Donation Complete': '捐款完成',
+                'Previous': '上一頁',
+                'Next': '下一頁'
+            }
+        };
+
+        // Initialize app
+        function startApp(language) {
+            currentLanguage = language;
+            updateLanguage();
+            showPage('matching');
+            document.getElementById('topBar').classList.remove('hidden');
+            document.getElementById('footerBar').classList.remove('hidden');
+        }
+
+        // Update language throughout the app
+        function updateLanguage() {
+            const elements = document.querySelectorAll('[data-en]');
+            elements.forEach(element => {
+                const key = currentLanguage === 'en' ? element.getAttribute('data-en') : element.getAttribute('data-zh');
+                if (key) {
+                    element.textContent = key;
+                }
+            });
+        }
+
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Show target page
+            const targetPage = pageId + 'Page';
+            document.getElementById(targetPage).classList.add('active');
+            currentPage = pageId;
+
+            // Update page-specific data
+            if (pageId === 'donation') {
+                updateDonationPage();
+            } else if (pageId === 'about') {
+                updateAboutPage();
+            }
+
+            updateFooterButtons();
+        }
+
+        function previousPage() {
+            const pages = ['matching', 'donation', 'about'];
+            const currentIndex = pages.indexOf(currentPage);
+            if (currentIndex > 0) {
+                showPage(pages[currentIndex - 1]);
+            }
+        }
+
+        function nextPage() {
+            const pages = ['matching', 'donation', 'about'];
+            const currentIndex = pages.indexOf(currentPage);
+            if (currentIndex < pages.length - 1) {
+                showPage(pages[currentIndex + 1]);
+            }
+        }
+
+        function updateFooterButtons() {
+            const pages = ['matching', 'donation', 'about'];
+            const currentIndex = pages.indexOf(currentPage);
+            
+            document.getElementById('prevBtn').disabled = currentIndex === 0;
+            document.getElementById('nextBtn').disabled = currentIndex === pages.length - 1;
+        }
+
+        // Card selection
+        function selectCard(card) {
+            currentSelectedCard = card;
+            const isSelected = card.classList.contains('selected');
+            const type = card.getAttribute('data-type');
+            const value = card.getAttribute('data-value');
+
+            // Show select modal
+            const modal = document.getElementById('selectModal');
+            const title = document.getElementById('selectModalTitle');
+            const content = document.getElementById('selectModalContent');
+            const selectBtn = document.getElementById('selectBtn');
+
+            title.textContent = card.querySelector('.card-title').textContent;
+            content.innerHTML = `
+                <div style="text-align: center; margin: 20px 0;">
+                    <div style="font-size: 48px; margin-bottom: 10px;">${card.querySelector('div').textContent}</div>
+                    <div style="font-size: 16px; font-weight: bold;">${card.querySelector('.card-title').textContent}</div>
+                    <div style="font-size: 14px; margin-top: 5px;">${getCardDescription(value)}</div>
+                </div>
+            `;
+
+            selectBtn.textContent = isSelected ? 
+                (currentLanguage === 'en' ? 'Unselect' : '取消選擇') : 
+                (currentLanguage === 'en' ? 'Select' : '選擇');
+
+            modal.style.display = 'block';
+        }
+
+        function getCardDescription(value) {
+            const descriptions = {
+                'FOOD:$100': currentLanguage === 'en' ? 'Five meals a day, not instant noodles' : '一日五餐非公仔麵',
+                'INSURANCE:$268': currentLanguage === 'en' ? 'Medical check-ups and surgery' : '睇醫生及手術',
+                'COLLAR:$330': currentLanguage === 'en' ? 'Automatic health monitoring' : '自動健康檢查',
+                'ADOPTION:$489': currentLanguage === 'en' ? 'Real-time activity and health data' : '即時活動健康資料',
+                'ALLSTRAY:1': currentLanguage === 'en' ? 'All strays in the sanctuary' : '園區內所有需要照顧的浪浪',
+                'SQUIRREL:1': currentLanguage === 'en' ? 'Healthy and happy with one eye issue' : '健康快樂 一隻眼疾',
+                'PUG:1': currentLanguage === 'en' ? 'Active spirit with occasional stomach pain' : '精神活躍 間中肚痛',
+                'TERRIER:1': currentLanguage === 'en' ? 'Strong despite age, right leg less flexible' : '老當益壯 右腳不靈活'
+            };
+            return descriptions[value] || '';
+        }
+
+        function toggleSelection() {
+            if (!currentSelectedCard) return;
+
+            const isSelected = currentSelectedCard.classList.contains('selected');
+            const type = currentSelectedCard.getAttribute('data-type');
+            const value = currentSelectedCard.getAttribute('data-value');
+
+            if (isSelected) {
+                // Unselect
+                currentSelectedCard.classList.remove('selected');
+                if (type === 'needs') {
+                    selectedNeeds = selectedNeeds.filter(item => item !== value);
+                } else {
+                    selectedLives = selectedLives.filter(item => item !== value);
+                }
+            } else {
+                // Select
+                currentSelectedCard.classList.add('selected');
+                if (type === 'needs') {
+                    selectedNeeds.push(value);
+                } else {
+                    selectedLives.push(value);
+                }
+            }
+
+            closeModal('selectModal');
+            updateSelectionData();
+        }
+
+        function updateSelectionData() {
+            // This would normally update the JSON data output
+            console.log({
+                NEEDS: selectedNeeds,
+                LIVES: selectedLives
+            });
+        }
+
+        // Modal functions
+        function openSettingsModal() {
+            document.getElementById('settingsModal').style.display = 'block';
+            if (isLoggedIn) {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('memberInfo').style.display = 'block';
+                document.getElementById('loginBtn').textContent = currentLanguage === 'en' ? 'Logout' : '登出';
+            } else {
+                document.getElementById('loginForm').style.display = 'block';
+                document.getElementById('memberInfo').style.display = 'none';
+                document.getElementById('loginBtn').textContent = currentLanguage === 'en' ? 'Login' : '登錄';
+            }
+        }
+
+        function openTotalDonationsModal() {
+            document.getElementById('totalDonationsModal').style.display = 'block';
+        }
+
+        function openUsedDonationsModal() {
+            document.getElementById('usedDonationsModal').style.display = 'block';
+        }
+
+        function openScanModal() {
+            document.getElementById('scanModal').style.display = 'block';
+        }
+
+        function openPaymentModal() {
+            if (selectedNeeds.length === 0 || selectedLives.length === 0) {
+                alert(currentLanguage === 'en' ? 'Please select at least one need and one life to help.' : '請至少選擇一項需求和一個生命來幫助。');
+                return;
+            }
+            document.getElementById('paymentModal').style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Login functionality
+        function toggleLogin() {
+            if (isLoggedIn) {
+                // Logout
+                isLoggedIn = false;
+                document.getElementById('memberGreeting').textContent = currentLanguage === 'en' ? 'I am a guest' : '我是訪客';
+                document.getElementById('memberBtn').textContent = currentLanguage === 'en' ? 'Login' : '登錄';
+                updateTotals();
+            } else {
+                // Login
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                if (username === 'alice' && password === '2345') {
+                    isLoggedIn = true;
+                    document.getElementById('memberGreeting').textContent = currentLanguage === 'en' ? 'Hello Alice' : '您好 Alice';
+                    document.getElementById('memberBtn').textContent = currentLanguage === 'en' ? 'Member Settings' : '會員設定';
+                    updateTotals();
+                    closeModal('settingsModal');
+                } else {
+                    alert(currentLanguage === 'en' ? 'Invalid credentials' : '登錄憑證無效');
+                }
+            }
+            closeModal('settingsModal');
+        }
+
+        function updateTotals() {
+            const userData = isLoggedIn ? mockData.alice : mockData.guest;
+            document.getElementById('totalAmount').textContent = userData.total.toLocaleString();
+            document.getElementById('usedAmount').textContent = userData.used.toLocaleString();
+        }
+
+        // Donation page functions
+        function updateDonationPage() {
+            if (selectedNeeds.length === 0 || selectedLives.length === 0) {
+                document.getElementById('donationItems').innerHTML = currentLanguage === 'en' ? 
+                    'Please select items and animals from the matching page first.' :
+                    '請先從配對頁面選擇項目和動物。';
+                document.getElementById('donationTotal').textContent = '0';
+                return;
+            }
+
+            let itemsText = '';
+            let total = 0;
+
+            selectedNeeds.forEach(need => {
+                const [item, price] = need.split(':');
+                const amount = parseInt(price.replace(', ''));
+                total += amount * selectedLives.length;
+                itemsText += `${item}: ${price} x ${selectedLives.length} = ${amount * selectedLives.length}<br>`;
+            });
+
+            document.getElementById('donationItems').innerHTML = itemsText;
+            document.getElementById('donationTotal').textContent = total.toLocaleString();
+        }
+
+        function processPayment() {
+            // Simulate payment processing
+            setTimeout(() => {
+                const now = new Date();
+                const transactionHash = '0x' + Math.random().toString(16).substr(2, 8);
+                const blockNumber = Math.floor(Math.random() * 1000000);
+                const amount = document.getElementById('donationTotal').textContent;
+
+                document.getElementById('transactionInfo').innerHTML = `
+                    <div><strong>${currentLanguage === 'en' ? 'Timestamp:' : '時間戳:'}</strong> ${now.toLocaleString()}</div>
+                    <div><strong>${currentLanguage === 'en' ? 'Amount:' : '金額:'}</strong> ${amount}</div>
+                    <div><strong>${currentLanguage === 'en' ? 'Block Number:' : '區塊號:'}</strong> ${blockNumber}</div>
+                    <div><strong>${currentLanguage === 'en' ? 'Transaction Hash:' : '交易哈希:'}</strong> ${transactionHash}</div>
+                `;
+
+                document.getElementById('donationComplete').style.display = 'block';
+                closeModal('paymentModal');
+
+                // Update totals
+                if (isLoggedIn) {
+                    mockData.alice.total += parseInt(amount.replace(',', ''));
+                } else {
+                    mockData.guest.total += parseInt(amount.replace(',', ''));
+                }
+                updateTotals();
+            }, 2000);
+        }
+
+        function confirmScan() {
+            // Simulate QR scan result
+            alert(currentLanguage === 'en' ? 'QR Code scanned successfully!' : '二維碼掃描成功！');
+            closeModal('scanModal');
+        }
+
+        // About page functions
+        function updateAboutPage() {
+            const guestTotal = mockData.guest.total;
+            const guestUsed = mockData.guest.used;
+            const aliceTotal = mockData.alice.total;
+            const aliceUsed = mockData.alice.used;
+
+            const oasisTotal = guestTotal + aliceTotal;
+            const oasisUsed = guestUsed + aliceUsed;
+            const myUsed = isLoggedIn ? aliceUsed : 0;
+
+            document.getElementById('oasisTotal').textContent = oasisTotal.toLocaleString();
+            document.getElementById('oasisUsed').textContent = oasisUsed.toLocaleString();
+            document.getElementById('myUsed').textContent = myUsed.toLocaleString();
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTotals();
+        });
+    </script>
+</body>
+</html>
