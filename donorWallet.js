@@ -1,8 +1,8 @@
 // Image Constants
-const IMG_INTRO_1 = 'oasis/Intro_1.jpg';
-const IMG_INTRO_2 = 'oasis/Intro_2.jpg';
-const IMG_INTRO_3 = 'oasis/Intro_3.jpg';
-const IMG_INTRO_4 = 'oasis/Intro_4.jpg';
+const IMG_INTRO_1 = 'Intro_1.jpg';
+const IMG_INTRO_2 = 'Intro_2.jpg';
+const IMG_INTRO_3 = 'Intro_3.jpg';
+const IMG_INTRO_4 = 'Intro_4.jpg';
 
 // Global State Management
 let currentLanguage = 'zh'; // Default to Chinese
@@ -506,5 +506,6 @@ if (typeof module !== 'undefined' && module.exports) {
         processPayment
     };
 }
+
 
 
