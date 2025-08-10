@@ -149,9 +149,14 @@ body {
     align-items: center;
     gap: 20px;
     z-index: 15;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(5px);
     padding: 20px;
+}
+.intro-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    z-index: 30;
 }
 
 .intro-main {
@@ -215,13 +220,6 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-.intro-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    z-index: 30;
-}
 
 .lang-btn {
     padding: 5px 40px;
@@ -296,6 +294,7 @@ body {
 /* Matching Page Styles */
 #matching-page {
     padding-top: 80px;
+    background: linear-gradient(135deg, #4a148c 0%, #6a1b9a 50%, #2c1810 100%);
 }
 
 .selection-box, .support-box {
@@ -474,6 +473,7 @@ body {
 /* Donation Page Styles */
 #donation-page {
     padding-top: 80px;
+    background: linear-gradient(135deg, #4a148c 0%, #6a1b9a 50%, #2c1810 100%);
 }
 
 .thank-you-box, .donation-complete-box {
@@ -552,6 +552,7 @@ body {
 /* About Page Styles */
 #about-page {
     padding-top: 80px;
+    background: linear-gradient(135deg, #4a148c 0%, #6a1b9a 50%, #2c1810 100%);
 }
 
 .donation-summary-section, .about-us-section {
