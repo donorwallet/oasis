@@ -54,45 +54,57 @@
             <h2 class="section-title" data-en="Please Select" data-zh="請選擇">請選擇</h2>
             
             <div class="needs-section">
-                <h3 data-en="NEEDS" data-zh="需求">NEEDS</h3>
+                <h3 data-en="NEEDS" data-zh="浪浪需求">NEEDS</h3>
                 <div class="cards-carousel needs-carousel">
                     <div class="card" data-type="FOOD" data-price="100" onclick="openSelectModal(this)">
-                        <img src="https://via.placeholder.com/150x150/FFB6C1/FFFFFF?text=Food" alt="Food">
-                        <p><span data-en="Nutritional Food" data-zh="營養糧食">營養糧食</span> $100/<span data-en="portion" data-zh="份">份</span></p>
+                        <img src="" alt="Food" data-img-const="IMG_NEEDS_1">
+                        <p>
+                            <span class="line-break" data-en="Nutritional Food" data-zh="營養糧食">營養糧食</span>
+                            $100/<span data-en="pc" data-zh="份">份</span>
+                        </p>
                     </div>
                     <div class="card" data-type="INSURANCE" data-price="268" onclick="openSelectModal(this)">
-                        <img src="https://via.placeholder.com/150x150/98FB98/FFFFFF?text=Medical" alt="Medical">
-                        <p><span data-en="Medical Insurance" data-zh="醫療保險">醫療保險</span> $268/<span data-en="month" data-zh="月">月</span></p>
+                        <img src="" alt="Medical" data-img-const="IMG_NEEDS_2">
+                        <p>
+                            <span class="line-break" data-en="Medical Insurance" data-zh="醫療保險">醫療保險</span>
+                            $268/<span data-en="mo" data-zh="月">月</span>
+                        </p>
                     </div>
                     <div class="card" data-type="COLLAR" data-price="330" onclick="openSelectModal(this)">
-                        <img src="https://via.placeholder.com/150x150/87CEEB/FFFFFF?text=Smart+Collar" alt="Smart Collar">
-                        <p><span data-en="Smart Collar" data-zh="智能頸圈">智能頸圈</span> $330/<span data-en="piece" data-zh="件">件</span></p>
+                        <img src="" alt="Smart Collar" data-img-const="IMG_NEEDS_3">
+                        <p>
+                            <span class="line-break" data-en="Smart Collar" data-zh="智能頸圈">智能頸圈</span>
+                            $330/<span data-en="pc" data-zh="件">件</span>
+                        </p>
                     </div>
                     <div class="card" data-type="ADOPTION" data-price="489" onclick="openSelectModal(this)">
-                        <img src="https://via.placeholder.com/150x150/DDA0DD/FFFFFF?text=Full+Care" alt="Full Adoption">
-                        <p><span data-en="Full Adoption" data-zh="全面助養">全面助養</span> $489/<span data-en="month" data-zh="月">月</span></p>
+                        <img src="" alt="Full Adoption" data-img-const="IMG_NEEDS_4">
+                        <p>
+                            <span class="line-break" data-en="Full Adoption" data-zh="全面助養">全面助養</span>
+                            $489/<span data-en="mo" data-zh="月">月</span>
+                        </p>
                     </div>
                 </div>
             </div>
 
             <div class="lives-section">
-                <h3 data-en="LIVES" data-zh="生命">LIVES</h3>
+                <h3 data-en="LIVES" data-zh="浪浪生命">LIVES</h3>
                 <div class="cards-carousel lives-carousel">
                     <div class="card" data-type="ALLSTRAY" data-count="1" onclick="openSelectModal(this)">
-                        <img src="https://via.placeholder.com/150x150/F0E68C/FFFFFF?text=All+Strays" alt="All Strays">
-                        <p data-en="All Oasis Strays" data-zh="綠洲浪浪">綠洲浪浪</p>
+                        <img src="" alt="All Strays" data-img-const="IMG_LIVES_1">
+                        <p data-en="All Oasis Strays" data-zh="全體綠洲浪浪">全體綠洲浪浪</p>
                     </div>
                     <div class="card" data-type="SQUIRREL" data-count="1" onclick="openSelectModal(this)">
-                        <img src="https://via.placeholder.com/150x150/FFA07A/FFFFFF?text=Squirrel+Dog" alt="Squirrel Dog">
-                        <p data-en="Squirrel Dog, 6 years" data-zh="松鼠狗6歲">松鼠狗6歲</p>
+                        <img src="" alt="Squirrel Dog" data-img-const="IMG_LIVES_2">
+                        <p data-en="Squirrel Dog, 6 yrs" data-zh="松鼠狗,6歲">松鼠狗,6歲</p>
                     </div>
                     <div class="card" data-type="PUG" data-count="1" onclick="openSelectModal(this)">
-                        <img src="https://via.placeholder.com/150x150/20B2AA/FFFFFF?text=Pug+Dog" alt="Pug Dog">
-                        <p data-en="Pug Dog, 8 years" data-zh="八哥狗8歲">八哥狗8歲</p>
+                        <img src="" alt="Pug Dog" data-img-const="IMG_LIVES_3">
+                        <p data-en="Pug Dog, 8 yrs" data-zh="八哥狗,8歲">八哥狗,8歲</p>
                     </div>
                     <div class="card" data-type="TERRIER" data-count="1" onclick="openSelectModal(this)">
-                        <img src="https://via.placeholder.com/150x150/CD853F/FFFFFF?text=Terrier+Dog" alt="Terrier Dog">
-                        <p data-en="Terrier Dog, 14 years" data-zh="爹利狗14歲">爹利狗14歲</p>
+                        <img src="" alt="Terrier Dog" data-img-const="IMG_LIVES_4">
+                        <p data-en="Terrier Dog, 14 yrs" data-zh="爹利狗,14歲">爹利狗,14歲</p>
                     </div>
                 </div>
             </div>
@@ -118,11 +130,11 @@
 
             <div class="stats-row">
                 <button class="stat-btn" onclick="openTotalDonationsModal()">
-                    <span data-en="Total Donations" data-zh="總捐款">總捐款</span>
+                    <span data-en="Check 👉🏻 My Total Donations" data-zh="查看 👉🏻 我的總捐款">查看我的總捐款</span>
                     <div class="stat-amount" id="total-donations">$5,389,730</div>
                 </button>
                 <button class="stat-btn" onclick="openUsedDonationsModal()">
-                    <span data-en="Used Donations" data-zh="已用捐款">已用捐款</span>
+                    <span data-en="Check 👉🏻 My Used Donations" data-zh="查看 👉🏻 我的已用捐款">查看我的已用捐款</span>
                     <div class="stat-amount" id="used-donations">$3,897,304</div>
                 </button>
             </div>
@@ -192,8 +204,8 @@
                         </div>
                         <div class="circle-box member-box">
                             <div class="circle-content">
-                                <p data-en="Your Used" data-zh="您的已用">您的已用</p>
-                                <span class="amount">$0</span>
+                                <p data-en="Your" data-zh="您">您</p>
+                                <span class="amount">$100</span>
                             </div>
                         </div>
                     </div>
@@ -202,7 +214,7 @@
 
             <div class="smart-contract-info">
                 <p data-en="Smart Contract: Stablecoin HKD on Quantum-Safe Blockchain" data-zh="智能合約：量子安全區塊鏈上的穩定幣港幣">智能合約：量子安全區塊鏈上的穩定幣港幣</p>
-                <button class="view-contract-btn" onclick="window.open('https://quantumbesu.web.app/contract/oasisHKD', '_blank')">
+                <button class="view-contract-btn" onclick="window.open('https://quantumbesu.web.app/', '_blank')">
                     <span data-en="View Contract" data-zh="查看合約">查看合約</span> 🔗
                 </button>
             </div>
@@ -212,16 +224,20 @@
             <h2 class="section-title" data-en="About Us" data-zh="關於我們">關於我們</h2>
             
             <div class="vision-statement">
-                <p class="vision-text">
-                    當每一隻流浪犬的項圈都在守護家的平安,當沙頭角的數據成為千萬寵物的健康燈塔—— 這便是荒地重生為科技善意的終極證明。
-                </p>
+                <p class="vision-text" data-en="When every stray dog's collar protects the peace of homes, when Sha Tau Kok's data becomes a health beacon for millions of pets — this is the ultimate proof of barren land reborn as technological kindness." data-zh="當每一隻流浪犬的項圈都在守護家的平安,當沙頭角的數據成為千萬寵物的健康燈塔—— 這便是荒地重生為科技善意的終極證明。">當每一隻流浪犬的項圈都在守護家的平安,當沙頭角的數據成為千萬寵物的健康燈塔—— 這便是荒地重生為科技善意的終極證明。</p>
             </div>
 
             <div class="organization-details">
-                <p><strong data-en="Executive Organization" data-zh="執行機構">執行機構</strong>: 香港犬隻領養配對及教育協會有限公司 (CR No. 2937991)</p>
+                <p><strong data-en="Executive Organization" data-zh="執行機構">執行機構</strong>: <br>香港犬隻領養配對及教育協會有限公司<br>Dog Adoption Matching and Education Association of Hong Kong Limited<br>(CR No. 2937991)</p>
+            </div>
+            <div class="organization-details">
                 <p data-en="Government Registered NGO, Chapter 88 Charitable Tax Exemption" data-zh="政府註冊NGO, Chapter 88 慈善團體豁免繳稅登記">政府註冊NGO, Chapter 88 慈善團體豁免繳稅登記</p>
-                <p><strong data-en="Technology Partner" data-zh="科技合作夥伴">科技合作夥伴</strong>: Real Matter Technology Limited</p>
-                <p><strong data-en="Contact" data-zh="聯絡人">聯絡人</strong>: 陳先生</p>
+            </div>
+            <div class="organization-details">
+                <p><strong data-en="Technology Partner" data-zh="科技合作夥伴">科技合作夥伴</strong>:<br>Real Matter Technology Limited</p>
+            </div>
+            <div class="organization-details">
+                <p><strong data-en="Contact" data-zh="聯絡人">聯絡人</strong>: 陳先生 Mr. Chan</p>
                 <p><strong data-en="Phone" data-zh="電話">電話</strong>: 852-63600336</p>
             </div>
         </section>
@@ -261,21 +277,29 @@
             </div>
             <div class="modal-body">
                 <div id="login-form" class="login-form">
+                    <p><small data-en="Enter your username" data-zh="輸入您的用戶名">輸入您的用戶名</small></p>
                     <input type="text" id="username" placeholder="Username" value="alice">
+                    <p><small data-en="Enter your password" data-zh="輸入您的密碼">輸入您的密碼</small></p>
                     <input type="password" id="password" placeholder="Password" value="2345">
-                    <button class="gradient-btn" onclick="login()">Login</button>
+                    <button class="login-btn" onclick="login()">
+                        <span data-en="Login" data-zh="登入">登入</span>
+                    </button>
                 </div>
                 <div id="member-info" class="member-info hidden">
                     <p><strong data-en="Member Name" data-zh="會員姓名">會員姓名</strong>: Alice</p>
                     <p><strong data-en="Blockchain Address" data-zh="區塊鏈地址">區塊鏈地址</strong>: 0x742d...8B3f</p>
                     <p><strong data-en="Membership Level" data-zh="會員級別">會員級別</strong>: Gold</p>
                     <p><strong data-en="Expiry Date" data-zh="到期日期">到期日期</strong>: 2029-12-31</p>
+                    <div>
                     <button class="download-btn" disabled>
                         <span data-en="Download Receipt" data-zh="下載收據">下載收據</span> 📄
                     </button>
+                    </div>
+                    <div>
                     <button class="logout-btn" onclick="logout()">
                         <span data-en="Logout" data-zh="登出">登出</span>
                     </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -285,13 +309,13 @@
     <div id="total-donations-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 data-en="Total Donations" data-zh="總捐款">總捐款</h3>
+                <h3 data-en="Your Total Donations" data-zh="你的總捐款">你的總捐款</h3>
                 <button class="close-btn" onclick="closeModal('total-donations-modal')">&times;</button>
             </div>
             <div class="modal-body">
-                <p data-en="Stablecoin Smart Contract on Quantum-Safe Blockchain" data-zh="量子安全區塊鏈上的穩定幣智能合約">量子安全區塊鏈上的穩定幣智能合約</p>
+                <p data-en="We utilize stablecoin smart contract technology to ensure secure and reliable donation transactions." data-zh="我們運用穩定幣智能合約科技，確保捐款交易安全和可靠">---</p>
                 <p><strong data-en="Contract Address" data-zh="合約地址">合約地址</strong>: 0x1234...ABCD</p>
-                <button class="view-btn" onclick="window.open('https://quantumbesu.web.app/contract/oasisHKD', '_blank')">
+                <button class="view-btn" onclick="window.open('https://quantumbesu.web.app/', '_blank')">
                     <span data-en="View Stablecoin Contract" data-zh="查看穩定幣合約">查看穩定幣合約</span>
                 </button>
                 <div class="recent-donations">
@@ -312,13 +336,13 @@
     <div id="used-donations-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 data-en="Used Donations" data-zh="已用捐款">已用捐款</h3>
+                <h3 data-en="Your Used Donations" data-zh="你的已用捐款">你的已用捐款</h3>
                 <button class="close-btn" onclick="closeModal('used-donations-modal')">&times;</button>
             </div>
             <div class="modal-body">
-                <p data-en="Quantum-Safe Blockchain Account Data" data-zh="量子安全區塊鏈帳戶數據">量子安全區塊鏈帳戶數據</p>
+                <p data-en="We employ quantum-secure blockchain technology to maintain transparency and openness of donation data." data-zh="我們運用量子安全區塊鏈科技，維護捐款數據透明和公開">- - -</p>
                 <p><strong data-en="Account Address" data-zh="帳戶地址">帳戶地址</strong>: 0x5678...EFGH</p>
-                <button class="view-btn" onclick="window.open('https://quantumbesu.web.app/account/allstray', '_blank')">
+                <button class="view-btn" onclick="window.open('https://quantumbesu.web.app/', '_blank')">
                     <span data-en="View Blockchain Data" data-zh="查看區塊鏈數據">查看區塊鏈數據</span>
                 </button>
                 <div class="purchase-history">
@@ -361,20 +385,24 @@
     <div id="payment-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 data-en="Payment by STRIPE" data-zh="STRIPE 付款">STRIPE 付款</h3>
+                <h3 data-en="Payment by STRIPE 💳" data-zh="STRIPE 付款 💳">STRIPE 付款 💳</h3>
                 <button class="close-btn" onclick="closeModal('payment-modal')">&times;</button>
             </div>
             <div class="modal-body">
                 <form class="payment-form">
+                    <p><small data-en="Enter your credit card number" data-zh="輸入您的信用卡號">輸入您的信用卡號</small></p>
                     <input type="text" placeholder="Visa Card Number" value="4242 4242 4242 4242">
+                    <p><small data-en="Enter your billing address" data-zh="輸入您的賬單地址">輸入您的賬單地址</small></p>
                     <input type="text" placeholder="Billing Address" value="123 Main St, Hong Kong">
+                    <p><small data-en="Enter card holder name" data-zh="輸入持卡人姓名">輸入持卡人姓名</small></p>
                     <input type="text" placeholder="Cardholder Name" value="John Doe">
+                    <p><small data-en="Enter your email address" data-zh="輸入您的電子郵件">輸入您的電子郵件</small></p>
                     <input type="email" placeholder="Email" value="john@example.com">
                     <div class="payment-actions">
-                        <button type="button" class="pay-btn gradient-btn" disabled onclick="processPayment()">
+                        <button class="pay-btn gradient-btn" disabled onclick="processPayment()">
                             <span data-en="Pay" data-zh="付款">付款</span> $<span id="payment-amount">0</span>
                         </button>
-                        <button type="button" class="cancel-btn" onclick="closeModal('payment-modal')">
+                        <button class="cancel-btn" onclick="closeModal('payment-modal')">
                             <span data-en="Cancel" data-zh="取消">取消</span>
                         </button>
                     </div>

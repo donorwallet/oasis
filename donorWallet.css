@@ -298,7 +298,7 @@ body {
 }
 
 .selection-box, .support-box {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 25px;
@@ -351,7 +351,9 @@ body {
 }
 
 .card {
-    min-width: 150px;
+    width: 220px;
+    min-width: 220px;
+    height: 250px;
     background: white;
     border-radius: 15px;
     padding: 15px;
@@ -360,6 +362,10 @@ body {
     transition: all 0.3s ease;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     border: 3px solid transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .card:hover {
@@ -382,7 +388,7 @@ body {
 
 .card img {
     width: 100%;
-    height: 100px;
+    height: 150px;
     object-fit: cover;
     border-radius: 10px;
     margin-bottom: 10px;
@@ -391,6 +397,10 @@ body {
 .card p {
     font-size: 0.9rem;
     font-weight: 600;
+}
+
+.line-break {
+    display: block;
 }
 
 /* Support Box Styles */
@@ -423,22 +433,30 @@ body {
     color: #666;
 }
 
-.login-btn {
-    background: linear-gradient(45deg, #96ceb4, #ffecd2);
-    border: none;
-    color: #333;
+.login-btn, .logout-btn, .download-btn {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+    border: 2px solid #dee2e6;
     padding: 10px 20px;
     border-radius: 20px;
     cursor: pointer;
+    font-size: 1rem;
     font-weight: 600;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
 
-.login-btn:hover {
-    transform: translateY(-2px);
+.login-btn:hover, .logout-btn:hover, .download-btn:hover {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
 }
+
+.download-btn {
+    background: #6c757d;
+    cursor: not-allowed;
+}
+
 
 .stats-row {
     display: flex;
@@ -584,6 +602,7 @@ body {
     height: 300px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
+    right: 10%;
 }
 
 .used-box {
@@ -603,12 +622,12 @@ body {
     color: white;
     position: absolute;
     bottom: 10px;
-    right: 10px;
+    right: -20px;
 }
 
 .circle-content {
-    text-align: center;
-    padding: 20px;
+    text-align: left;
+    padding: 5px;
 }
 
 .circle-content p {
@@ -645,10 +664,13 @@ body {
 }
 
 .vision-statement {
-    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+    background: linear-gradient(45deg, #ff9a9e, #fecfef, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ff9a9e);
+    background-size: 400% 400%;
+    animation: gradientShift 6s ease infinite;
     border-radius: 15px;
     padding: 25px;
     margin: 20px 0;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
 .vision-text {
@@ -777,13 +799,13 @@ body {
     transition: all 0.3s ease;
 }
 
-.cancel-btn, .logout-btn {
+.cancel-btn{
     background: #f8f9fa;
     color: #666;
     border: 2px solid #dee2e6;
 }
 
-.cancel-btn:hover, .logout-btn:hover {
+.cancel-btn:hover {
     background: #e9ecef;
     transform: translateY(-1px);
 }
@@ -814,16 +836,6 @@ body {
     border-radius: 15px;
     padding: 20px;
     line-height: 1.8;
-}
-
-.download-btn {
-    background: #6c757d;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    margin: 10px 5px;
-    cursor: not-allowed;
 }
 
 /* Special Modal Styles */
@@ -870,12 +882,13 @@ body {
 
 .scan-actions, .payment-actions {
     display: flex;
+    flex-direction: column;
     gap: 15px;
     margin-top: 20px;
 }
 
-.payment-actions button {
-    flex: 1;
+.scan-actions button, .payment-actions button {
+    width: 100%;
     padding: 15px;
     border: none;
     border-radius: 25px;
@@ -934,7 +947,9 @@ body {
     }
     
     .card {
-        min-width: 130px;
+        width: 180px;
+        min-width: 180px;
+        height: 220px;
     }
     
     .stats-row {

@@ -3,6 +3,14 @@ const IMG_INTRO_1 = './Intro_1.jpg';
 const IMG_INTRO_2 = './Intro_2.jpg';
 const IMG_INTRO_3 = './Intro_3.jpg';
 const IMG_INTRO_4 = './Intro_4.jpg';
+const IMG_NEEDS_1 = './Needs_1.jpg';
+const IMG_NEEDS_2 = './Needs_2.jpg';
+const IMG_NEEDS_3 = './Needs_3.jpg';
+const IMG_NEEDS_4 = './Needs_4.jpg';
+const IMG_LIVES_1 = './Lives_1.jpg';
+const IMG_LIVES_2 = './Lives_2.jpg';
+const IMG_LIVES_3 = './Lives_3.jpg';
+const IMG_LIVES_4 = './Lives_4.jpg';
 
 // Global State Management
 let currentLanguage = 'zh'; // Default to Chinese
@@ -30,20 +38,20 @@ const mockData = {
 
 const careItemDetails = {
     FOOD: {
-        en: { name: 'Nutritional Food', price: 100, unit: 'portion', description: 'Five meals a day, not instant noodles' },
-        zh: { name: '營養糧食', price: 100, unit: '份', description: '一日五餐非公仔麵' }
+        en: { name: 'Nutritional Food', price: 100, unit: 'portion', description: 'Balanced nutrition for three meals a day' },
+        zh: { name: '提供營養糧食', price: 100, unit: '份', description: '一日三餐的營養均衡飲食' }
     },
     INSURANCE: {
-        en: { name: 'Medical Insurance', price: 268, unit: 'month', description: 'Doctor visits and surgeries' },
-        zh: { name: '醫療保險', price: 268, unit: '月', description: '睇醫生及手術' }
+        en: { name: 'Medical Insurance', price: 268, unit: 'month', description: 'Comprehensive coverage for doctor visits and surgeries' },
+        zh: { name: '購買醫療保險', price: 268, unit: '月', description: '全面承擔醫生及手術費用' }
     },
     COLLAR: {
-        en: { name: 'Smart Collar', price: 330, unit: 'piece', description: 'Automatic health monitoring' },
-        zh: { name: '智能頸圈', price: 330, unit: '件', description: '自動健康檢查' }
+        en: { name: 'Smart Collar', price: 330, unit: 'piece', description: 'IoT technology for automatic health monitoring' },
+        zh: { name: '訂製智能頸圈', price: 330, unit: '件', description: '物聯網科技自動健康檢查' }
     },
     ADOPTION: {
-        en: { name: 'Full Adoption', price: 489, unit: 'month', description: 'Real-time activity and health data' },
-        zh: { name: '全面助養', price: 489, unit: '月', description: '即時活動健康資料' }
+        en: { name: 'Full Adoption', price: 489, unit: 'month', description: 'Remote real-time activity and health data' },
+        zh: { name: '全面助養浪浪', price: 489, unit: '月', description: '遠端的即時活動健康資料' }
     }
 };
 
@@ -200,14 +208,20 @@ function openSelectModal(cardElement) {
         details = careItemDetails[type][currentLanguage];
         modalTitle.textContent = details.name;
         modalDetails.innerHTML = `
-            <p><strong>${currentLanguage === 'en' ? 'Price' : '價格'}</strong>: $${details.price}/${details.unit}</p>
-            <p><strong>${currentLanguage === 'en' ? 'Description' : '描述'}</strong>: ${details.description}</p>
+            <p>
+                <strong>${details.name}</strong><br>
+                ${currentLanguage === 'en' ? 'Price' : '價格'}: $${details.price}/${details.unit}<br>
+                ${currentLanguage === 'en' ? 'Description' : '描述'}: ${details.description}
+            </p>
         `;
     } else {
         details = animalDetails[type][currentLanguage];
         modalTitle.textContent = details.name;
         modalDetails.innerHTML = `
-            <p><strong>${currentLanguage === 'en' ? 'Description' : '描述'}</strong>: ${details.description}</p>
+            <p>
+                <strong>${details.name}</strong><br>
+                ${currentLanguage === 'en' ? 'Description' : '描述'}: ${details.description}
+            </p>
         `;
     }
     
@@ -436,6 +450,29 @@ function updateAboutPageStats() {
     document.querySelector('.member-box .amount').textContent = `$${currentUserUsed.toLocaleString()}`;
 }
 
+// Initialize card images using constants
+function initializeCardImages() {
+    // Create a mapping of constant names to their values
+    const imageConstants = {
+        IMG_NEEDS_1,
+        IMG_NEEDS_2,
+        IMG_NEEDS_3,
+        IMG_NEEDS_4,
+        IMG_LIVES_1,
+        IMG_LIVES_2,
+        IMG_LIVES_3,
+        IMG_LIVES_4
+    };
+    
+    // Set image sources for all cards with data-img-const attribute
+    document.querySelectorAll('img[data-img-const]').forEach(img => {
+        const constName = img.getAttribute('data-img-const');
+        if (imageConstants[constName]) {
+            img.src = imageConstants[constName];
+        }
+    });
+}
+
 // Initialize carousel images
 function initializeCarouselImages() {
     const carouselImages = document.querySelectorAll('.carousel-image');
@@ -452,6 +489,9 @@ function initializeCarouselImages() {
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize carousel with local images
     initializeCarouselImages();
+    
+    // Initialize card images using constants
+    initializeCardImages();
     
     // Set initial language
     updateLanguage();
