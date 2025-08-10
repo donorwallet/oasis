@@ -1,8 +1,8 @@
 // Image Constants
-const IMG_INTRO_1 = 'Intro_1.jpg';
-const IMG_INTRO_2 = 'Intro_2.jpg';
-const IMG_INTRO_3 = 'Intro_3.jpg';
-const IMG_INTRO_4 = 'Intro_4.jpg';
+const IMG_INTRO_1 = './Intro_1.jpg';
+const IMG_INTRO_2 = './Intro_2.jpg';
+const IMG_INTRO_3 = './Intro_3.jpg';
+const IMG_INTRO_4 = './Intro_4.jpg';
 
 // Global State Management
 let currentLanguage = 'zh'; // Default to Chinese
@@ -70,8 +70,26 @@ const animalDetails = {
 function selectLanguage(lang) {
     currentLanguage = lang;
     updateLanguage();
+    // Navigate to page 2 (matching-page) after language selection
     showPage('matching-page');
     document.getElementById('top-nav').classList.remove('hidden');
+}
+
+// Navigation Flow Functions
+function goToMatchingPage() {
+    showPage('matching-page');
+}
+
+function goToDonationPage() {
+    showPage('donation-page');
+}
+
+function goToAboutPage() {
+    showPage('about-page');
+}
+
+function goToIntroPage() {
+    showPage('intro-page');
 }
 
 function updateLanguage() {
@@ -100,13 +118,37 @@ function updateMemberGreeting() {
 
 // Page Navigation
 function showPage(pageId) {
-    // Hide all pages
-    document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active');
-    });
-    
-    // Show target page
-    document.getElementById(pageId).classList.add('active');
+    // Add fade out effect to current page
+    const currentPage = document.querySelector('.page.active');
+    if (currentPage) {
+        currentPage.style.opacity = '0';
+        
+        // Wait for fade out, then switch pages
+        setTimeout(() => {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+                page.style.opacity = '1';
+            });
+            
+            // Show target page
+            const targetPage = document.getElementById(pageId);
+            targetPage.classList.add('active');
+            targetPage.style.opacity = '0';
+            
+            // Fade in new page
+            setTimeout(() => {
+                targetPage.style.opacity = '1';
+            }, 50);
+            
+        }, 200);
+    } else {
+        // First page load - no transition
+        document.querySelectorAll('.page').forEach(page => {
+            page.classList.remove('active');
+        });
+        document.getElementById(pageId).classList.add('active');
+    }
     
     // Handle special page logic
     if (pageId === 'donation-page') {
@@ -506,6 +548,3 @@ if (typeof module !== 'undefined' && module.exports) {
         processPayment
     };
 }
-
-
-
