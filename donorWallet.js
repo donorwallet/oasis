@@ -11,6 +11,9 @@ const IMG_LIVES_1 = './Lives_1.jpg';
 const IMG_LIVES_2 = './Lives_2.jpg';
 const IMG_LIVES_3 = './Lives_3.jpg';
 const IMG_LIVES_4 = './Lives_4.jpg';
+const IMG_TECH_1 = './Tech_1.jpg';
+const IMG_TECH_2 = './Tech_2.jpg';
+const IMG_TECH_3 = './Tech_3.jpg';
 
 // Global State Management
 let currentLanguage = 'zh'; // Default to Chinese
@@ -433,6 +436,37 @@ function processPayment() {
     // Clear selections
     selectedItems = { NEEDS: [], LIVES: [] };
     updateSelectionVisuals();
+}
+
+// Technology Modal Management
+function openTechModal(techType) {
+    const techData = {
+        iot: {
+            modalId: 'iot-modal',
+            imageId: 'iot-image',
+            imageConst: IMG_TECH_1
+        },
+        stablecoin: {
+            modalId: 'stablecoin-modal',
+            imageId: 'stablecoin-image',
+            imageConst: IMG_TECH_2
+        },
+        insurance: {
+            modalId: 'insurance-modal',
+            imageId: 'insurance-image',
+            imageConst: IMG_TECH_3
+        }
+    };
+    
+    const tech = techData[techType];
+    if (tech) {
+        // Set the image source
+        const imageElement = document.getElementById(tech.imageId);
+        imageElement.src = tech.imageConst;
+        
+        // Open the modal
+        openModal(tech.modalId);
+    }
 }
 
 // About Page Logic

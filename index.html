@@ -213,7 +213,7 @@
             </div>
 
             <div class="smart-contract-info">
-                <p data-en="Smart Contract: Stablecoin HKD on Quantum-Safe Blockchain" data-zh="智能合約：量子安全區塊鏈上的穩定幣港幣">智能合約：量子安全區塊鏈上的穩定幣港幣</p>
+                <p data-en="Smart Contract: Stablecoin Technology of Quantum-Safe Blockchain" data-zh="智能合約：量子安全區塊鏈的穩定幣科技">智能合約：量子安全區塊鏈上的穩定幣港幣</p>
                 <button class="view-contract-btn" onclick="window.open('https://quantumbesu.web.app/', '_blank')">
                     <span data-en="View Contract" data-zh="查看合約">查看合約</span> 🔗
                 </button>
@@ -224,21 +224,40 @@
             <h2 class="section-title" data-en="About Us" data-zh="關於我們">關於我們</h2>
             
             <div class="vision-statement">
-                <p class="vision-text" data-en="When every stray dog's collar protects the peace of homes, when Sha Tau Kok's data becomes a health beacon for millions of pets — this is the ultimate proof of barren land reborn as technological kindness." data-zh="當每一隻流浪犬的項圈都在守護家的平安,當沙頭角的數據成為千萬寵物的健康燈塔—— 這便是荒地重生為科技善意的終極證明。">當每一隻流浪犬的項圈都在守護家的平安,當沙頭角的數據成為千萬寵物的健康燈塔—— 這便是荒地重生為科技善意的終極證明。</p>
+                <p class="vision-text" data-en="When every stray dog's collar protects the peace of homes, when Sha Tau Kok's data becomes a health beacon for millions of pets —— this is the ultimate proof of barren land reborn as technological kindness." data-zh="當每一隻流浪犬的項圈都在守護家的平安,當沙頭角的數據成為千萬寵物的健康燈塔 —— 這便是荒地重生為科技善意的終極證明。">當每一隻流浪犬的項圈都在守護家的平安,當沙頭角的數據成為千萬寵物的健康燈塔—— 這便是荒地重生為科技善意的終極證明。</p>
             </div>
 
             <div class="organization-details">
                 <p><strong data-en="Executive Organization" data-zh="執行機構">執行機構</strong>: <br>香港犬隻領養配對及教育協會有限公司<br>Dog Adoption Matching and Education Association of Hong Kong Limited<br>(CR No. 2937991)</p>
             </div>
             <div class="organization-details">
-                <p data-en="Government Registered NGO, Chapter 88 Charitable Tax Exemption" data-zh="政府註冊NGO, Chapter 88 慈善團體豁免繳稅登記">政府註冊NGO, Chapter 88 慈善團體豁免繳稅登記</p>
+                <p data-en="Government Registered NGO, Section 88 Tax Exempted Charitable Institution" data-zh="政府註冊NGO, 稅務條例第88條—豁免繳稅慈善團體">NGO, Section 88</p>
             </div>
+            <div class="organization-details">
+                <p><strong data-en="Medical InsurancePartner" data-zh="醫療保險夥伴">醫療保險夥伴</strong>:<br>OneDegress Hong Kong Limited</p>
+            </div>            
             <div class="organization-details">
                 <p><strong data-en="Technology Partner" data-zh="科技合作夥伴">科技合作夥伴</strong>:<br>Real Matter Technology Limited</p>
             </div>
             <div class="organization-details">
                 <p><strong data-en="Contact" data-zh="聯絡人">聯絡人</strong>: 陳先生 Mr. Chan</p>
                 <p><strong data-en="Phone" data-zh="電話">電話</strong>: 852-63600336</p>
+            </div>
+        </section>
+
+        <section class="about-us-section">
+            <h2 class="section-title" data-en="Our Technologies" data-zh="我們的技術">我們的技術</h2>
+            
+            <div class="tech-buttons">
+                <button class="gradient-btn" onclick="openTechModal('iot')">
+                    <span data-en="IoT Technology" data-zh="物聯網科技">物聯網科技</span>
+                </button>
+                <button class="gradient-btn" onclick="openTechModal('stablecoin')">
+                    <span data-en="Stablecoin Technology" data-zh="穩定幣科技">穩定幣科技</span>
+                </button>
+                <button class="gradient-btn" onclick="openTechModal('insurance')">
+                    <span data-en="Insurance Technology" data-zh="保險科技">保險科技</span>
+                </button>
             </div>
         </section>
 
@@ -407,6 +426,50 @@
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Technology Modals -->
+    
+    <!-- IoT Technology Modal -->
+    <div id="iot-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-en="IoT Technology" data-zh="物聯網科技">物聯網科技</h3>
+                <button class="close-btn" onclick="closeModal('iot-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img id="iot-image" src="" alt="IoT Technology" data-img-const="IMG_TECH_1">
+                <p data-en="Equipped with a smart collar, dogs' real-time health data can be remotely monitored. Through artificial intelligence analysis, potential health issues are detected early for preventive treatment. Combined with medical insurance, dogs' health receives comprehensive protection." data-zh="配備智能頸圈，犬隻的即時健康數據可實現遠程監測，通過人工智能分析，提早發現潛在健康問題並進行預防性治療。結合醫療保險，犬隻健康獲得全面保障。">配備智能頸圈，犬隻的即時健康數據可實現遠程監測，通過人工智能分析，提早發現潛在健康問題並進行預防性治療。結合醫療保險，犬隻健康獲得全面保障。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stablecoin Technology Modal -->
+    <div id="stablecoin-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-en="Stablecoin Technology" data-zh="穩定幣科技">穩定幣科技</h3>
+                <button class="close-btn" onclick="closeModal('stablecoin-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img id="stablecoin-image" src="" alt="Stablecoin Technology" data-img-const="IMG_TECH_2">
+                <p data-en="Using stablecoin's smart contract technology, donors can direct the use of their donations and check the remaining balance in real-time. Leveraging blockchain's high reliability, it effectively enhances donors' trust and engagement." data-zh="利用穩定幣的智能合約技術，捐款者可定向管理捐款用途，並實時查詢捐款使用餘額。依托區塊鏈的高可靠性，有效提升捐款者的信任與參與積極性。">利用穩定幣的智能合約技術，捐款者可定向管理捐款用途，並實時查詢捐款使用餘額。依托區塊鏈的高可靠性，有效提升捐款者的信任與參與積極性。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Insurance Technology Modal -->
+    <div id="insurance-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-en="Insurance Technology" data-zh="保險科技">保險科技</h3>
+                <button class="close-btn" onclick="closeModal('insurance-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img id="insurance-image" src="" alt="Insurance Technology" data-img-const="IMG_TECH_3">
+                <p data-en="By applying blockchain's verifiable technology, dogs' health and sponsorship data are transformed into accurate big data. Insurance companies offering medical coverage can fully understand the insured situation, thereby reducing premiums and risks." data-zh="應用區塊鏈的可驗證技術，犬隻的健康數據與助養數據轉化為精準的大數據。提供醫療保險的保險公司可充分掌握投保詳情，從而降低保費與風險。">應用區塊鏈的可驗證技術，犬隻的健康數據與助養數據轉化為精準的大數據。提供醫療保險的保險公司可充分掌握投保詳情，從而降低保費與風險。</p>
             </div>
         </div>
     </div>
