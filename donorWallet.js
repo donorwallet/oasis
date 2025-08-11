@@ -274,6 +274,23 @@ function updateSelectionVisuals() {
             card.classList.remove('selected');
         }
     });
+    
+    // Check if we have selections from both NEEDS and LIVES sections
+    const hasNeedsSelection = selectedItems.NEEDS.length > 0;
+    const hasLivesSelection = selectedItems.LIVES.length > 0;
+    
+    if (hasNeedsSelection && hasLivesSelection) {
+        // Auto-scroll to bottom of matching page
+        setTimeout(() => {
+            const matchingPage = document.getElementById('matching-page');
+            if (matchingPage && matchingPage.classList.contains('page') && matchingPage.style.display !== 'none') {
+                matchingPage.scrollTo({
+                    top: matchingPage.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }
+        }, 500); // Small delay to allow modal closing animation to complete
+    }
 }
 
 // Settings Modal
